@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import { supabase } from "./supabaseClient";
+
+export default function App() {
+  async function signIn() {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: "github",
+    });
+
+    console.log({ user, session, error });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main style={{ display: "flex", justifyContent: "center" }}>
+      <button onClick={() => signIn()}>Sign in with GitHub</button>
+    </main>
   );
 }
-
-export default App;
